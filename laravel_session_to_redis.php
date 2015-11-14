@@ -14,7 +14,7 @@ if(REDIS_AUTH){
 	$redis->auth(REDIS_AUTH);
 }
 
-$redis->select(0);
+$redis->select(REDIS_DB);
 if(REDIS)
 $count = 0;
 while(false !== ($entry = $d->read())){
