@@ -1,5 +1,5 @@
 <?php
-define('SESSION_DIR','/data/laravel_session');
+define('SESSION_DIR','/data/laravel_sessions');
 define('REDIS_HOST','127.0.0.1');
 define('REDIS_PORT','6379');
 define('REDIS_AUTH',false);
@@ -16,14 +16,17 @@ if(REDIS_AUTH){
 
 $redis->select(0);
 if(REDIS)
+$count = 0;
 while(false !== ($entry = $d->read())){
 	$file = SESSION_DIR.'/'.$entry;
 	if(is_file($file)){
-		echo $file;
-		$content = file_get_contents($file)
+		echo $file."\n";
+		$content = file_get_contents($file);
 		$content = serialize(trim($content));
 		$redis->setex(PREFIX.$entry,TTL,$content);
+		$count++;
 	}
 }
+$redis->close();
 
 ?>
