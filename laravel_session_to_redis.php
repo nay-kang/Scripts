@@ -27,6 +27,7 @@ while(false !== ($entry = $d->read())){
 		$count++;
 	}
 }
+echo 'total session:'.$count."\n";
 $redis->close();
 
 ?>
